@@ -1,15 +1,17 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
 // const cors = require("cors");
 
 app.use(express.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(express.json());
 // app.use(cors);
 
 app.listen(port || 3000, () => {
-  console.log(`Server is running on port ${port}`)
+  console.log(`Server is running on http://localhost:${port}`)
 });
 
 let friends = [
@@ -69,7 +71,7 @@ app.get('/friends', (req, res) => {
   res.json(friends);
 });
 
-app.post('/contacts/invited', (req, res) => {
-  const num = req.body.length;
-  res.json(`You have invited ${num} friend(s)`)
+app.post('/friends/invite', (req, res) => {
+  const num = req.body;
+  res.status(200).json({message: `${num}`})
 })
