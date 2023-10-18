@@ -1,10 +1,15 @@
 const fetch = require('node-fetch');
+require('dotenv').config();
 
 const serverUrl = 'https://friend-invite-express-server-f35149be8b17.herokuapp.com';
 
 // GET /friends
 test('GET /friends should return an array of friends', async () => {
-  const response = await fetch(`${serverUrl}/friends`);
+  const response = await fetch(`${serverUrl}/friends`, {
+    headers: {
+      'x-api-key': `${process.env.API_KEY}`
+    },
+  });
   const friends = await response.json();
   expect(Array.isArray(friends)).toBe(true);
 });
@@ -15,6 +20,7 @@ test('POST /friends/invite should return a success message', async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'x-api-key': `${process.env.API_KEY}`
     },
     body: JSON.stringify(['john.doe@example.com', 'jane.doe@example.com']),
   });
@@ -28,6 +34,7 @@ test('POST /friends/invite should return a success message', async () => {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
+      'x-api-key': `${process.env.API_KEY}`
     },
     body: JSON.stringify(['john.doe@example.com', 'jane.doe@example.com', 'salad@hoodle.com']),
   });
