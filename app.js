@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const authenticateApiKey = require('./middleware/authenticateApiKey')
+const cors = require('cors')
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
@@ -8,6 +9,15 @@ const port = process.env.PORT;
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.json());
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
+
 
 app.listen(port || 3000, () => {
   console.log(`Server is running on http://localhost:${port}`)
