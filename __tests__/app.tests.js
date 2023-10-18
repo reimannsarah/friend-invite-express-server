@@ -22,3 +22,17 @@ test('POST /friends/invite should return a success message', async () => {
   const data = await response.json();
   expect(data).toHaveProperty('message');
 });
+
+test('POST /friends/invite should return a success message', async () => {
+  const response = await fetch(`${serverUrl}/friends/invite`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(['john.doe@example.com', 'jane.doe@example.com', 'salad@hoodle.com']),
+  });
+
+  const data = await response.json();
+  const message = "You have invited 3 friend(s)!"
+  expect(data.message).toEqual(message);
+});
