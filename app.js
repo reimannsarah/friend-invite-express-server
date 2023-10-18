@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const authenticateApiKey = require('./middleware/authenticateApiKey')
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
@@ -65,11 +66,11 @@ let friends = [
   }
 ];
 
-app.get('/friends', (req, res) => {
+app.get('/friends', authenticateApiKey, (req, res) => {
   res.json(friends);
 });
 
-app.post('/friends/invite', (req, res) => {
+app.post('/friends/invite', authenticateApiKey, (req, res) => {
   const num = req.body.length;
   res.status(200).json({message: `You have invited ${num} friend(s)!`})
 })
