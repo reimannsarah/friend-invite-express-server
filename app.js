@@ -72,6 +72,6 @@ app.get('/friends', (req, res) => {
 });
 
 app.post('/friends/invite', (req, res) => {
-  const num = req.body;
-  res.status(200).json({message: `${num}`})
+  const num = req.body.length;
+  res.status(200).json({message: `You have invited ${num} friend(s)!`})
 })
