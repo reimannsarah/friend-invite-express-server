@@ -3,12 +3,10 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const app = express();
 const port = process.env.PORT;
-// const cors = require("cors");
 
 app.use(express.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use(express.json());
-// app.use(cors);
 
 app.listen(port || 3000, () => {
   console.log(`Server is running on http://localhost:${port}`)
